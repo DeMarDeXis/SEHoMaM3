@@ -2,44 +2,33 @@ package main
 
 import (
 	"fmt"
-	"strings"
+	//"strings"
 
-	"log"
+	//"log"
+	"os"
 
 	"github.com/spf13/cobra"
 )
 
-// Reigistr command
-var (
-	persistRootFlag bool
+func main() {
+	var rootCmd = &cobra.Command{Use: "myapp"}
 
-	rootCmd = &cobra.Command{
-		Use:   "Root Command",
-		Short: "This is Short Root Command",
-		Long:  "Hello! I am Short Root Command and ...",
-		/* 	Run: func(cmd *cobra.Command, args []string) {
-			fmt.Println("O.pruvet! Dobre odpoledne!")
-		}, */
-	}
+	var name string
 
-	echoCmd = &cobra.Command{
-		Use:   "Echo command",
-		Short: "Just say Hello",
-		Args:  cobra.MinimumNArgs(1),
+	var cmdSayHello = &cobra.Command{
+		Use:   "sayhello",
+		Short: "Say hello to someone",
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Println("Echo: " + strings.Join(args, " "))
+			fmt.Printf("Hello, %s!\n", name)
 		},
 	}
-)
 
-func init() {
-	rootCmd.PersistentFlags().BoolVarP(&persistRootFlag, "persistFlag", "p", false, "a persistent root flag") //Whats the flag?
-	rootCmd.AddCommand(echoCmd)
-}
+	cmdSayHello.Flags().StringVarP(&name, "name", "n", "World", "Name to say hello to")
 
-// Error
-func main() {
+	rootCmd.AddCommand(cmdSayHello)
+
 	if err := rootCmd.Execute(); err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
+		os.Exit(1)
 	}
 }
