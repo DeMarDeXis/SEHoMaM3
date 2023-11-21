@@ -5,22 +5,15 @@ import (
 )
 
 type SaveFile struct {
-	Filename string
-	File     *os.File
+	NameFile string //?
+	file     *os.File
 }
 
-func NewSaveFile(filename string) *SaveFile {
-	return &SaveFile{
-		Filename: filename,
-		File:     nil,
-	}
-}
-
-func (sf *SaveFile) Open() error {
-	file, err := os.Open(sf.Filename)
+func NewSaveFile(fileway string) (*SaveFile, error) {
+	file, err := os.Open(fileway)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	sf.File = file
-	return nil
+
+	return &SaveFile{file: file}, nil
 }
