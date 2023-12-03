@@ -1,4 +1,4 @@
-module editor
+module github.com/DeMarDeXis/SEHoMaM3/tree/cobra
 
 go 1.21.0
 

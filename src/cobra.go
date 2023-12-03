@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"savedata" //Ошибка
+
+	"github.com/DeMarDeXis/SEHoMaM3/tree/cobra/savedata"
 
 	"github.com/spf13/cobra"
 )
@@ -17,14 +18,13 @@ func NewCobraCommand() *cobra.Command {
 		},
 	}
 
-	var openCmd = &cobra.Command{ //Ошибка
+	var openCmd = &cobra.Command{
 		Use:   "FileOpener",
 		Short: "FiOp",
 		Args:  cobra.ExactArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
 			fileway := args[0]
-			sf := savedata.NewSaveFile(fileway)
-			err := sf.Open()
+			sf, err := savedata.NewSaveFile(fileway) // изменено
 			if err != nil {
 				fmt.Printf("Error opening file: %v\n", err)
 			} else {

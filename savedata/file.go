@@ -5,15 +5,15 @@ import (
 )
 
 type SaveFile struct {
-	NameFile string //?
+	NameFile string
 	file     *os.File
 }
 
-func NewSaveFile(fileway string) (*SaveFile, error) {
+func NewSaveFile(fileway string) (*SaveFile, error) { // изменено
 	file, err := os.Open(fileway)
 	if err != nil {
 		return nil, err
 	}
 
-	return &SaveFile{file: file}, nil
+	return &SaveFile{NameFile: fileway, file: file}, nil
 }
